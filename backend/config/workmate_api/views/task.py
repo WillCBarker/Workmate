@@ -17,6 +17,16 @@ class Tasks(APIView):
         serializer = s.TaskSerializer(objs, many=True)
 
         return Response(serializer.data, status=status.HTTP_200_OK)
+    
+    def get_detail(self, request, pk):
+        current_user = request.user
+        try:
+            obj = m.Task.objects.get(pk=pk, user=current_user)
+            serializer = s.TaskSerializer(obj)
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        except m.Task.DoesNotExist:
+            return Response({"detail": "Task not found"}, status=status.HTTP_404_NOT_FOUND)
+
 
     def post(self, request):
         """ Create a new task """
