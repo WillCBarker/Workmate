@@ -17,6 +17,15 @@ class Events(APIView):
         serializer = s.EventSerializer(objs, many=True)
 
         return Response(serializer.data, status=status.HTTP_200_OK)
+
+    def get_detail(self, request, pk):
+        current_user = request.user
+        try:
+            obj = m.Event.objects.get(pk=pk, user=current_user)
+            serializer = s.EventSerializer(obj)
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        except m.Event.DoesNotExist:
+            return Response({"detail": "Event not found"}, status=status.HTTP_404_NOT_FOUND)
     
     def post(self, request):
         """ Create a new event """
