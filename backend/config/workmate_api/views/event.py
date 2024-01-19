@@ -36,7 +36,7 @@ class Events(APIView):
 
         serializer = s.EventSerializer(data=request.data)
         if serializer.is_valid():
-            serializer.validated_data['user'] = current_user
+            serializer.validated_data["user"] = current_user
             new_event = serializer.save()
 
             user_schedule, created = m.Schedule.objects.get_or_create(user=current_user)
@@ -47,13 +47,13 @@ class Events(APIView):
             interval = timedelta(minutes=15)
 
             while start_time < end_time:
-                start_key = start_time.strftime('%H:%M')
+                start_key = start_time.strftime("%H:%M")
 
                 if start_key not in user_schedule.day_intervals:
 
                     user_schedule.day_intervals[start_key] = []
                 user_schedule.day_intervals[start_key].append(new_event.id)
-                
+
                 start_time += interval
 
             user_schedule.save()
