@@ -5,6 +5,8 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework import status
 
+from datetime import timedelta
+
 
 class Tasks(APIView):
     def get(self, request):
@@ -36,7 +38,27 @@ class Tasks(APIView):
         serializer = s.TaskSerializer(data=request.data)
         if serializer.is_valid():
             serializer.validated_data['user'] = current_user
-            serializer.save()
+            new_task = serializer.save()
+
+            user_schedule, created = m.Schedule.objects.get_or_create(user=current_user)
+            user_schedule.events.add(new_task)
+
+            start_time = new_task.start_datetime
+            end_time = new_task.end_datetime
+            interval = timedelta(minutes=15)
+
+            while start_time < end_time:
+                start_key = start_time.strftime("%H:%M")
+
+                if start_key not in user_schedule.day_intervals:
+                    user_schedule.day_intervals[start_key] = []
+                user_schedule.day_intervals[start_key].append(new_task.id)
+
+                start_time += interval
+
+            user_schedule.save()
+
+
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
