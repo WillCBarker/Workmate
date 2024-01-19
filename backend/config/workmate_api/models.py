@@ -21,7 +21,6 @@ class Task(models.Model):
     description = models.TextField()
     start_datetime = models.DateTimeField()
     end_datetime = models.DateTimeField()
-    deadline = models.DateTimeField(null=True, blank=True)
     completed = models.BooleanField(default=False)
 
 class Schedule(models.Model):
