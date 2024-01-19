@@ -48,7 +48,12 @@ class Events(APIView):
 
             while start_time < end_time:
                 start_key = start_time.strftime('%H:%M')
-                user_schedule.day_intervals[start_key] = new_event.id
+
+                if start_key not in user_schedule.day_intervals:
+
+                    user_schedule.day_intervals[start_key] = []
+                user_schedule.day_intervals[start_key].append(new_event.id)
+                
                 start_time += interval
 
             user_schedule.save()
