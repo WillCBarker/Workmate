@@ -34,8 +34,19 @@ class Goals(APIView):
 
         serializer = s.GoalSerializer(data=request.data)
         if serializer.is_valid():
-            serializer.validated_data['user'] = current_user
-            serializer.save()
+            serializer.validated_data["user"] = current_user
+            new_goal = serializer.save()
+
+            user_schedule, created = m.Schedule.objects.get_or_create(user=current_user)
+            user_schedule.events.add(new_goal)
+
+            deadline = new_goal.deadline
+            deadline_key = deadline.strftime("%H:%M")
+
+            if deadline_key not in user_schedule.day_intervals:
+                user_schedule.day_intervals[deadline_key] = []
+            user_schedule.day_intervals[deadline_key].append(new_goal.id)
+
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
