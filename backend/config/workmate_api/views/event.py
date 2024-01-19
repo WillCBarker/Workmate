@@ -50,7 +50,6 @@ class Events(APIView):
                 start_key = start_time.strftime("%H:%M")
 
                 if start_key not in user_schedule.day_intervals:
-
                     user_schedule.day_intervals[start_key] = []
                 user_schedule.day_intervals[start_key].append(new_event.id)
 
