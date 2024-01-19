@@ -19,6 +19,8 @@ class Task(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     title = models.CharField(max_length=255)
     description = models.TextField()
+    start_datetime = models.DateTimeField()
+    end_datetime = models.DateTimeField()
     deadline = models.DateTimeField(null=True, blank=True)
     completed = models.BooleanField(default=False)
 
@@ -27,6 +29,7 @@ class Schedule(models.Model):
     events = models.ManyToManyField(Event, blank=True)
     tasks = models.ManyToManyField(Task, blank=True)
     goals = models.ManyToManyField(Goal, blank=True)
+    day_intervals = models.JSONField(default=dict)
 
 class UserInsight(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
