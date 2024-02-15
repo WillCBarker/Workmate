@@ -5,6 +5,15 @@
     border-radius: 5px;
 }
 
+.calendar-div {
+    border: 3px solid rgb(250, 254, 174);
+    border-radius: 1%;
+    padding-top: 100px;
+    padding-left: 100px;
+    padding-right: 100px;
+    padding-bottom: 50px;
+}
+
 .calendar-grid {
     grid-auto-flow: row;
     display: grid;
@@ -14,8 +23,8 @@
   
   /* Styling for individual days */
   .calendar-day {
-    height: calc(90vh / 6); /* 80vh divided by 6 rows */
-    width: calc(70vw / 7);
+    height: calc(60vh / 6); /* 80vh divided by 6 rows */
+    width: calc(50vw / 7);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -25,6 +34,11 @@
     border-radius: 5px;
     cursor: pointer; /* Indicate interactivity */
     color: white;
+  }
+
+  .calendar-day.not-current-month {
+    /* Adjust opacity and color for non-current month days */
+    opacity: 0.4;
   }
   
   /* Highlight selected days */
