@@ -1,0 +1,35 @@
+.container {
+    background-color: #292626;
+    margin: 0 auto;
+    padding: 20px;
+    border-radius: 5px;
+}
+
+.calendar-grid {
+    grid-auto-flow: row;
+    display: grid;
+    grid-template-columns: repeat(7, 1fr); /* 7 columns for 7 days of the week */
+    grid-gap: 10px; /* Adjust spacing between days as needed */
+  }
+  
+  /* Styling for individual days */
+  .calendar-day {
+    height: calc(90vh / 6); /* 80vh divided by 6 rows */
+    width: calc(70vw / 7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 16px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    cursor: pointer; /* Indicate interactivity */
+    color: white;
+  }
+  
+  /* Highlight selected days */
+  .calendar-day.selected {
+    background-color: #4a4a47;
+    border-color: #f3f321;
+    color: #ffffff;
+  }
