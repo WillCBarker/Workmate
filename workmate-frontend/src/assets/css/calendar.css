@@ -91,3 +91,9 @@
   filter: drop-shadow(0 0 5px rgb(246, 197, 84));
   cursor: pointer;
 }
+
+.day-label {
+  text-align: center;
+  font-size: medium;
+  color: white;
+}

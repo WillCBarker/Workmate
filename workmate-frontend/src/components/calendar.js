@@ -24,7 +24,7 @@ function buildCalendar(currentMonth, selectedDate, setSelectedDate) {
         firstDayOfMonth.getMonth(),
     );
 
-    const calendarGrid = [];
+    const calendarGrid = [<p className="day-label">Su</p>, <p className="day-label">Mo</p>, <p className="day-label">Tu</p>, <p className="day-label">We</p>, <p className="day-label">Th</p>, <p className="day-label">Fr</p>, <p className="day-label">Sa</p>];
   
     for (let i = 1 - startingDate.getDay(); i < 43 - startingDate.getDay(); i++) {
       const day = new Date(currentMonth);
