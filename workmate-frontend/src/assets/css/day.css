@@ -1,0 +1,19 @@
+.calendar-day {
+    position: relative;
+}
+
+.day-container {
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+  }
+
+.day-container p {
+    position: absolute; /* absolute positioning within the cell */
+    top: 0; /* align to the top */
+    left: 0; /* align to the left */
+    margin: 0;
+    margin-left: 5%;
+}
+
+  
