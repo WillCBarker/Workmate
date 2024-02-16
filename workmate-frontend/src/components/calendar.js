@@ -2,6 +2,9 @@ import "../assets/css/calendar.css";
 
 import React, { useState } from 'react';
 import Day from "./day";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faChevronLeft, faChevronRight, faHouse } from "@fortawesome/free-solid-svg-icons";
+import { Link } from 'react-router-dom';
 
 function getDaysInMonth(month) {
     return new Date(month.getFullYear(), month.getMonth() + 1, 0).getDate();
@@ -9,16 +12,6 @@ function getDaysInMonth(month) {
   
 function getFirstDayOfMonth(date) {
     return new Date(date.getFullYear(), date.getMonth(), 1);
-}
-  
-function getDayCountSinceFirstSunday(startingDate) {
-    // Ensure startingDate is a valid Date object
-    if (!(startingDate instanceof Date)) {
-        throw new TypeError('startingDate must be a valid Date object');
-    }
-
-    const dayOfWeek = startingDate.getDay();
-    return dayOfWeek === 0 ? 0 : (7 - dayOfWeek) % 7;
 }
 
 function buildCalendar(currentMonth, selectedDate, setSelectedDate) {
@@ -60,12 +53,16 @@ export function Calendar() {
   
     return (
       <div className="container">
-        <button onClick={() => setCurrentMonth(new Date(currentMonth.getFullYear(), currentMonth.getMonth() - 1, 1))}>Previous Month</button>
-        <button onClick={() => setCurrentMonth(new Date(currentMonth.getFullYear(), currentMonth.getMonth() + 1, 1))}>Next Month</button>
-        <div className="calendar-div">
-          <div className="calendar-grid">{calendarGrid}</div>
-        </div>
+      <Link to="/"><FontAwesomeIcon icon={faHouse} /></Link>
+      <div className="calendar-header">
+            <FontAwesomeIcon icon={faChevronLeft} onClick={() => setCurrentMonth(new Date(currentMonth.getFullYear(), currentMonth.getMonth() - 1, 1))}></FontAwesomeIcon>
+          <div className="calendar-title">
+            {currentMonth.toLocaleString('en-US', { month: 'long', year: 'numeric' })}
+          </div>
+            <FontAwesomeIcon icon={faChevronRight} onClick={() => setCurrentMonth(new Date(currentMonth.getFullYear(), currentMonth.getMonth() + 1, 1))}></FontAwesomeIcon>
       </div>
+      <div className="calendar-grid">{calendarGrid}</div>
+    </div>
     );
 }
 
