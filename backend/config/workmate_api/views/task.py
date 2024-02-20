@@ -7,20 +7,32 @@ from rest_framework import status
 
 from datetime import timedelta
 
+from django.contrib.auth.models import User
+
 
 class Tasks(APIView):
     def get(self, request):
         """ Get all tasks for a given user """
+        
+        # NOTE: revisit authentication once endpoints are hooked up to front end
+        current_user = User.objects.get(pk=1)
 
-        current_user = request.user
-
+        monthParam = int(request.GET.get("month"))
+        
         objs = m.Task.objects.all().filter(user=current_user)
 
-        serializer = s.TaskSerializer(objs, many=True)
+        respList = []
+        for o in objs:
+            deadline = o.end_datetime.month
+            print(deadline, monthParam)
+            if deadline == monthParam:
+                respList.append(o)
+
+        serializer = s.TaskSerializer(respList, many=True)
 
         return Response(serializer.data, status=status.HTTP_200_OK)
     
-    def get_detail(self, request, pk):
+    def get_detail(self, request, date):
         current_user = request.user
         try:
             obj = m.Task.objects.get(pk=pk, user=current_user)
@@ -33,15 +45,14 @@ class Tasks(APIView):
     def post(self, request):
         """ Create a new task """
         
-        current_user = request.user
+        current_user = User.objects.get(pk=1)
 
         serializer = s.TaskSerializer(data=request.data)
         if serializer.is_valid():
             serializer.validated_data['user'] = current_user
             new_task = serializer.save()
-
             user_schedule, created = m.Schedule.objects.get_or_create(user=current_user)
-            user_schedule.events.add(new_task)
+            user_schedule.tasks.add(new_task)
 
             start_time = new_task.start_datetime
             end_time = new_task.end_datetime
