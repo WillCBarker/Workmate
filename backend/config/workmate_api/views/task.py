@@ -17,15 +17,20 @@ class Tasks(APIView):
         # NOTE: revisit authentication once endpoints are hooked up to front end
         current_user = User.objects.get(pk=1)
 
-        monthParam = int(request.GET.get("month"))
+        month_param = request.GET.get("month")
+        year_param = request.GET.get("year")
+
+        if not month_param:
+            return Response("Please pass in month and year", status=status.HTTP_400_BAD_REQUEST)
         
         objs = m.Task.objects.all().filter(user=current_user)
 
         respList = []
         for o in objs:
-            deadline = o.end_datetime.month
-            print(deadline, monthParam)
-            if deadline == monthParam:
+            month_deadline = str(o.end_datetime.month)
+            year_deadline = str(o.end_datetime.year)
+
+            if (month_deadline == month_param) and (year_deadline == year_param):
                 respList.append(o)
 
         serializer = s.TaskSerializer(respList, many=True)
