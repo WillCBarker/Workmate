@@ -37,7 +37,7 @@
 
   .calendar-day.not-current-month {
     /* Adjust opacity and color for non-current month days */
-    opacity: 0.4;
+    opacity: 0.2;
   }
   
   /* Highlight selected days */

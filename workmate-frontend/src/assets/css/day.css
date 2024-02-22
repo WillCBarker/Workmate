@@ -3,17 +3,24 @@
 }
 
 .day-container {
-    display: flex;
-    justify-content: flex-start;
-    align-items: flex-start;
+    display: block;
   }
 
 .day-container p {
-    position: absolute; /* absolute positioning within the cell */
+    position: absolute;
     top: 0; /* align to the top */
-    left: 0; /* align to the left */
+    left: 5%; /* align to the left */
     margin: 0;
-    margin-left: 5%;
+    margin-bottom: 10px;
 }
 
-  
+.test {
+    /* display: inline-block; */
+    border: 2px solid rgb(0, 255, 157);
+    margin-top: 10px;
+    border-radius: 10%;
+    font-size: 11px;
+}
+
+.test:hover {
+}
