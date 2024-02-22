@@ -3,7 +3,7 @@ import "../assets/css/home.css"
 
 function Home() {
     return (
-        <header class="container">
+        <header className="container">
             <Navboxes />
         </header>
 
