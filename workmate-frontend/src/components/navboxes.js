@@ -8,34 +8,34 @@ export function Navboxes() {
         <ul>
             <li>
                 <Link to="/calendar">
-                    <i class="Calendar"></i>
+                    <i className="Calendar"></i>
                     <div className="calendar-icon" />
                 </Link>
-                <label class="hide">Calendar</label>
+                <label className="hide">Calendar</label>
             </li>
             <li>
                 <a href="#">
-                <i class="Today"></i>
+                <i className="Today"></i>
                 </a>
-                <label class="hide">Today</label>
+                <label className="hide">Today</label>
                 </li>
             <li>
                 <a href="#">
-                <i class="Notes"></i>
+                <i className="Notes"></i>
                 </a>
-                <label class="hide">Notes</label>
+                <label className="hide">Notes</label>
             </li>
             <li>
                 <a href="#">
-                <i class="Reminders"></i>
+                <i className="Reminders"></i>
                 </a>
-                <label class="hide">Reminders</label>
+                <label className="hide">Reminders</label>
             </li>
             <li>
                 <a href="#">
-                <i class="Tool Suite"></i>
+                <i className="Tool Suite"></i>
                 </a>
-                <label class="hide">Tool Suite</label>
+                <label className="hide">Tool Suite</label>
             </li>
         </ul>
     )
